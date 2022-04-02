@@ -14,20 +14,7 @@ export class App extends React.Component {
     positiveFeedBack: 0,
   };
 
-  
-
-  // incrementValue = (param) => {
-  //   const keys = Object.keys(this.state)
-  //   for (let paramName of keys) {
-  //     if (paramName === param) {
-  //       this.setState((prevState) => {
-  //         return {[paramName]: prevState[paramName] + 1}
-  //       }, this.countTotalFeedback() )
-  //     }
-  //   }
-  // }
-
-    incrementValue = (param) => {
+  incrementValue = (param) => {
         this.setState((prevState) => {
           return {[param]: prevState[param] + 1}
         }, this.countTotalFeedback)
@@ -41,7 +28,7 @@ export class App extends React.Component {
 
   countPositiveFeedbackPercentage = () =>
     this.setState({
-      positiveFeedBack: (this.state.good / this.state.total) * 100,
+      positiveFeedBack: +((this.state.good / this.state.total) * 100).toFixed(0) + "%"
     });
 
   render() {
@@ -56,6 +43,7 @@ export class App extends React.Component {
         {this.state.total ? (
           <Section title="Statistics">
             <Statistic
+              params={this.state}
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}

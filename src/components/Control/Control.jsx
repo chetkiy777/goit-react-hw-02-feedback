@@ -8,10 +8,27 @@ const Control = props => {
 
   return (
     <div>
-      {paramsName.map(param => <button key={param} onClick={() => props.incrementValue(param)}>{param}</button>)}
+      {paramsName.map(param => 
+        <button 
+          className={styles.btn} 
+          key={param} 
+          onClick={() => props.incrementValue(param)}>
+          {param}
+        </button>)}
     </div>
   );
 };
+
+Control.propTypes = {
+  incrementValue: PropTypes.func,
+  params: PropTypes.shape({
+    good: PropTypes.number,
+    neutral: PropTypes.number,
+    bad: PropTypes.number,
+    total: PropTypes.number,
+    positiveFeedBack: PropTypes.any,
+  })
+}
 
 export default Control;
 
