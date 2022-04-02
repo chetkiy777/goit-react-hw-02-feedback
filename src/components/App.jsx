@@ -5,6 +5,7 @@ import Statistic from './Statistic/Statistic';
 import Notification from './Notification/Notification';
 
 export class App extends React.Component {
+
   state = {
     good: 0,
     neutral: 0,
@@ -13,19 +14,31 @@ export class App extends React.Component {
     positiveFeedBack: 0,
   };
 
-  incrementGood = () =>
-    this.setState({ good: this.state.good + 1 }, this.countTotalFeedback);
-  incrementNeutral = () =>
-    this.setState({ neutral: this.state.neutral + 1 }, this.countTotalFeedback);
-  incrementBad = () =>
-    this.setState({ bad: this.state.bad + 1 }, this.countTotalFeedback);
+  
+
+  // incrementValue = (param) => {
+  //   const keys = Object.keys(this.state)
+  //   for (let paramName of keys) {
+  //     if (paramName === param) {
+  //       this.setState((prevState) => {
+  //         return {[paramName]: prevState[paramName] + 1}
+  //       }, this.countTotalFeedback() )
+  //     }
+  //   }
+  // }
+
+    incrementValue = (param) => {
+        this.setState((prevState) => {
+          return {[param]: prevState[param] + 1}
+        }, this.countTotalFeedback)
+    }
+    
   countTotalFeedback = () =>
-    this.setState(
-      {
+    this.setState({
         total: this.state.good + this.state.neutral + this.state.bad,
-      },
-      this.countPositiveFeedbackPercentage
+      }, this.countPositiveFeedbackPercentage
     );
+
   countPositiveFeedbackPercentage = () =>
     this.setState({
       positiveFeedBack: (this.state.good / this.state.total) * 100,
@@ -36,9 +49,8 @@ export class App extends React.Component {
       <div>
         <Section title="Please leave feedback">
           <Control
-            incrementGood={this.incrementGood}
-            incrementNeutral={this.incrementNeutral}
-            incrementBad={this.incrementBad}
+            incrementValue={this.incrementValue}
+            params={this.state}
           />
         </Section>
         {this.state.total ? (
